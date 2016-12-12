@@ -6,15 +6,12 @@ func AkkR(m,n int)  int{
   res := 0;
   switch {
     case m==0:
-      fmt.Println("M == 0. N ==",n)
       res = n+1
     case m>0 && n==0:
-      res = Akk(m-1,1)
+      res = AkkR(m-1,1)
     case m>0 && n>0:
-      fmt.Println("M ==",m, "N ==",n)
-      res = Akk(m-1,Akk(m,n-1))
+      res = AkkR(m-1,AkkR(m,n-1))
   }
-  fmt.Println("Middle result:", res)
   return res
 }
 
