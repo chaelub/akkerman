@@ -98,7 +98,104 @@ func AkkTramp(m, n int64) int64 {
   return acc
 }
 
+//Iter version
 
+func popStack() (bool,[]int64) {
+  if len(stack)!=0 {
+      res := stack[len(stack)-1]
+      stack = stack[:len(stack)-1]
+      fmt.Printf("POP FROM STACK ELMENT: %v STACK NOW IS: %v\n",res,stack)
+      return true, res
+  }
+  fmt.Println("STACK IS EMPTY")
+  return false, []int64{}
+}
+
+func addToStack(m,n int64) {
+  stack = append(stack, []int64{m,n})
+  fmt.Printf("PUSH TO STACK ELEM: %v STACK NOW IS: %v\n",[]int64{m,n},stack)
+  return
+}
+
+func AkkIter(m,n int64) int64 {
+  res := int64(0);
+  result := int64(0);
+  var notEmpty bool
+  var p []int64
+  var nop bool = true
+  for {
+    fmt.Printf("STACK: %v. M: %v. N: %v. res: %v\n",stack,m,n,result)
+    fmt.Printf("MEMO:: %v\n",memo)
+    switch {
+      case m == int64(0):
+        res = n+int64(1)
+        for ;nop; {
+          notEmpty,p = popStack()
+          if notEmpty==true{
+            if p[1]==0{
+              nop = false
+            }
+          }else {
+            nop = false
+          }
+        }
+        if notEmpty==true {
+          result = result+res
+          add(p[0],p[1],res)
+        }
+        nop = true
+        notEmpty,p = popStack()
+        if notEmpty==true {
+          m, n = p[0]-int64(1), res
+          if len(stack)==0 {
+            continue
+          }
+        } else {
+          return result
+        }
+      case m>0 && n==0:
+        res = find(m,n)
+        if res == int64(-1) {
+          addToStack(m,n)
+          m, n = m-int64(1), 1
+        } else{
+          result = result+res
+          for ;nop; {
+            notEmpty,p = popStack()
+            if notEmpty==true{
+              if p[1]==0{
+                nop = false
+              }
+            }else {
+              nop = false
+            }
+          }
+          nop = true
+          notEmpty,p = popStack()
+          if notEmpty==true {
+            addToStack(p[0]-int64(1),res)
+            m, n = p[0]-int64(1), res
+          } else {
+            return result
+          }
+        }
+      case m>0 && n>0:
+        res = find(m,n)
+        if res == int64(-1) {
+          addToStack(m,n)
+          n = n-1
+        } else {
+          result = result+res
+          addToStack(m-int64(1),res)
+          m, n = m-int64(1), res
+        }
+    }
+    if len(stack)==0{
+      return result
+    }
+  }
+  return result
+}
 
 main () {
   fmt.Println(Akk(2,2))
