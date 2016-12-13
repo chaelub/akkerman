@@ -2,6 +2,8 @@ package main
 
 import "fmt"
 
+// Recur
+
 func AkkR(m,n int)  int{
   res := 0;
   switch {
@@ -38,6 +40,8 @@ func find(m,n int64) int64 {
   return res
 }
 
+// Recur with memo
+
 func Akk(m,n int64) int64 {
   stack := [][]int64{}
   res := int64(0);
@@ -68,6 +72,8 @@ func Akk(m,n int64) int64 {
   return res
 }
 
+//Trampoline version
+
 type akkfun func(m, n, acc int64) (akkfun, int64, int64, int64)
 
 func akk (m, n, acc int64) (akkfun, int64, int64, int64) {
@@ -91,6 +97,7 @@ func AkkTramp(m, n int64) int64 {
   }
   return acc
 }
+
 
 
 main () {
