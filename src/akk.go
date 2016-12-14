@@ -219,6 +219,52 @@ func AkkStackEmul(m,n int64) int64 {
   return result
 }
 
+// CHEAT version
+
+func hyper3(n int64) int64{
+  return int64(math.Pow(2,float64(n)))
+}
+
+func hyper4(n int64) int64 {
+  res := int64(2)
+  for ;n>1;n-- {
+    res = hyper3(res)
+  }
+  return res
+}
+
+func hyper5(n int64) int64{
+  res := int64(2)
+  for ;n>1;n-- {
+    res = hyper4(res)
+  }
+  return res
+}
+
+func AkkCheat(m, n int64) int64 {
+  res := int64(0);
+  if m>2 {
+    n = n+3
+  }
+  switch {
+    case m==int64(0):
+      res = n+1
+    case m==int64(1):
+      res = n+2
+    case m==2:
+      res = int64(2)*n+int64(3)
+    case m==3:
+      res = hyper3(n)-3
+    case m==4:
+      res = hyper4(n)-3
+    case m==5:
+      res = hyper5(n)-3
+  }
+  return res
+}
+
+//===================
+
 main () {
   fmt.Println(Akk(2,2))
 }
