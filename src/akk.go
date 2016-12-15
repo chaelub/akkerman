@@ -1,6 +1,7 @@
 package main
 
 import "fmt"
+import "math/big"
 
 // Recur
 
@@ -19,14 +20,14 @@ func AkkR(m,n int)  int{
 
 var memo = make(map[string]int64)
 
-func add(m,n,res int64) map[string]int64 {
+func add(m,n,res int64) int64 {
   if find(m,n) != int64(-1) {
-    return memo
+    return res
   } else {
     id := fmt.Sprintf("%d",m) + "_" + fmt.Sprintf("%d",n)
     memo[id] = res
   }
-  return memo
+  return res
 }
 
 func find(m,n int64) int64 {
