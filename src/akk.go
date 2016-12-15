@@ -262,7 +262,15 @@ func AkkCheat(m, n int64) *big.Int {
 
 //===================
 
-main () {
-  fmt.Println("Akkerman(4,1)",AkkCheat(4,1))
-  fmt.Println("Akkerman(3,3220)",AkkCheat(3,3220))
+func main() {
+
+  //  Статья на википедии "Функция Аккермана" - https://ru.wikipedia.org/wiki/%D0%A4%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D1%8F_%D0%90%D0%BA%D0%BA%D0%B5%D1%80%D0%BC%D0%B0%D0%BD%D0%B0
+  m := int64(4)
+  n := int64(1)
+
+  fmt.Printf("AkkCheat(%v, %v) = %v\n", m, n, AkkCheat(m, n)) // высчитывание через гипероператор если m > 2 простыми формулками если m < 3  Статья на википедии "Гипероператор" - https://ru.wikipedia.org/wiki/%D0%93%D0%B8%D0%BF%D0%B5%D1%80%D0%BE%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%BE%D1%80
+  fmt.Printf("AkkR(%v, %v) = %v\n", m, n, AkkR(m, n)) // тупая рекурсия без мемоизации
+  fmt.Printf("AkkStackEmul(%v, %v) = %v\n", m, n, AkkStackEmul(m, n)) // эмуляция стека на массиве, присутствует мемоизация
+  fmt.Printf("AkkTramp(%v, %v) = %v\n", m, n, AkkTramp(m, n)) // trampoline версия. Статья на википедии(eng) "Trampoline (computing)" - https://en.wikipedia.org/wiki/Trampoline_(computing)
+
 }
