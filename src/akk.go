@@ -41,6 +41,8 @@ func find(m,n int64) int64 {
   return res
 }
 
+var stack = make([][]int64,0,100)
+
 //Trampoline version
 
 type akkfun func(m, n, acc int64) (akkfun, int64, int64, int64)
