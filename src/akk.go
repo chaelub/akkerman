@@ -67,8 +67,6 @@ func AkkTramp(m, n int64) int64 {
   return acc
 }
 
-//Iter version
-
 // Iter version
 
 type Stack struct{
