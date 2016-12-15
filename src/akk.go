@@ -3,15 +3,27 @@ package main
 import "fmt"
 import "math/big"
 
+func check(m,n int64) bool{
+  if m<0 || n<0 {
+    return false
+  }
+  return true
+}
+
 // Recur
 
-func AkkR(m,n int)  int{
-  res := 0;
+func AkkR(m,n int64)  int64{
+  valid := check(m,n)
+  if !valid {
+    return 0
+  }
+
+  res := int64(0);
   switch {
     case m==0:
       res = n+1
     case m>0 && n==0:
-      res = AkkR(m-1,1)
+      res = AkkR(m-1,int64(1))
     case m>0 && n>0:
       res = AkkR(m-1,AkkR(m,n-1))
   }
@@ -60,6 +72,10 @@ func akk (m, n, acc int64) (akkfun, int64, int64, int64) {
 }
 
 func AkkTramp(m, n int64) int64 {
+  valid := check(m,n)
+  if !valid {
+    return 0
+  }
   fun := akkfun(akk)
   acc := int64(0)
 
@@ -117,6 +133,10 @@ func push(m,n int64) {
 
 
 func AkkStackEmul(m,n int64) int64 {
+  valid := check(m,n)
+  if !valid {
+    return 0
+  }
   res := int64(0)
   result := int64(0)
   //stack := newStack()
@@ -213,6 +233,10 @@ func hyper5(n *big.Int) *big.Int{
 }
 
 func AkkCheat(m, n int64) *big.Int {
+  valid := check(m,n)
+  if !valid {
+    return new(big.Int).SetInt64(0)
+  }
   res := new(big.Int).SetInt64(0)
   var three *big.Int
   if m>2 {
