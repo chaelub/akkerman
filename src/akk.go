@@ -221,44 +221,48 @@ func AkkStackEmul(m,n int64) int64 {
 
 // CHEAT version
 
-func hyper3(n int64) int64{
-  return int64(math.Pow(2,float64(n)))
+func hyper3(n *big.Int) *big.Int{
+  return new(big.Int).Exp(big.NewInt(2), n, nil)
 }
 
-func hyper4(n int64) int64 {
-  res := int64(2)
-  for ;n>1;n-- {
-    res = hyper3(res)
+func hyper4(n *big.Int) *big.Int{
+  res := new(big.Int).SetInt64(2)
+  one := new(big.Int).SetInt64(1)
+  for ;n.Cmp(one)==1;n.Sub(n, one) {
+    res.Set(hyper3(res))
   }
   return res
 }
 
-func hyper5(n int64) int64{
-  res := int64(2)
-  for ;n>1;n-- {
-    res = hyper4(res)
+func hyper5(n *big.Int) *big.Int{
+  res := new(big.Int).SetInt64(2)
+  one := new(big.Int).SetInt64(1)
+  for ;n.Cmp(one)==1;n.Sub(n, one) {
+    res.Set(hyper4(res))
   }
   return res
 }
 
-func AkkCheat(m, n int64) int64 {
-  res := int64(0);
+func AkkCheat(m, n int64) *big.Int {
+  res := new(big.Int).SetInt64(0)
+  var three *big.Int
   if m>2 {
     n = n+3
+    three = new(big.Int).SetInt64(3)
   }
   switch {
     case m==int64(0):
-      res = n+1
+      res.SetInt64(n+1)
     case m==int64(1):
-      res = n+2
+      res.SetInt64(n+2)
     case m==2:
-      res = int64(2)*n+int64(3)
+      res.SetInt64(int64(2)*n+int64(3))
     case m==3:
-      res = hyper3(n)-3
+      res.Sub(hyper3(new(big.Int).SetInt64(n)), three)
     case m==4:
-      res = hyper4(n)-3
+      res.Sub(hyper4(new(big.Int).SetInt64(n)), three)
     case m==5:
-      res = hyper5(n)-3
+      res.Sub(hyper5(new(big.Int).SetInt64(n)), three)
   }
   return res
 }
