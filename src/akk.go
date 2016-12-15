@@ -270,32 +270,6 @@ func AkkCheat(m, n int64) *big.Int {
 //===================
 
 main () {
-  fmt.Println(Akk(2,2))
+  fmt.Println("Akkerman(4,1)",AkkCheat(4,1))
+  fmt.Println("Akkerman(3,3220)",AkkCheat(3,3220))
 }
-
-  // for {
-  //   switch {
-  //     case m==int64(0):
-  //       res = res + n+int64(1)
-  //       memo = add(m,n,res)
-  //     case m>0 && n==0:
-  //       res = find(m,n)
-  //       if res == int64(-1) {
-  //         res = Akki(m-int64(1),int64(1))
-  //         memo = add(m,n,res)
-  //       }
-  //     case m>0 && n>0:
-  //       res = find(m,n)
-  //       if res == int64(-1) {
-  //         stack = append(stack, []int64{3,m,n})
-  //         n = n - int64(1)
-  //         stack = append(stack, []int64{3,m,n})
-
-  //         res = Akki(m-int64(1),Akki(m,n - int64(1)))
-  //         memo = add(m,n,res)
-  //       }
-  //       else {
-  //         result = result + res
-  //       }
-  //   }
-  // }
